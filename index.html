@@ -61,6 +61,10 @@
         }
         .logo-container img { height: 28px; width: auto; }
 
+        .header-buttons {
+            display: flex; gap: 10px; align-items: center;
+        }
+
         .nav-btn-top, .contact-btn-top {
             border: 1px solid rgba(255, 255, 255, 0.3);
             background: rgba(255, 255, 255, 0.05);
@@ -77,6 +81,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
+            text-align: center;
         }
         .nav-btn-top:hover, .contact-btn-top:hover {
             background: rgba(255, 255, 255, 0.2);
@@ -100,13 +105,15 @@
 
         .hero-title {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 5.5rem;
+            font-size: clamp(2.5rem, 8vw, 5.5rem); /* PERFECT MOBILE SCALING */
             font-weight: 700;
             line-height: 1.0;
             letter-spacing: -2.5px;
             margin: 0;
             max-width: 900px;
             pointer-events: auto;
+            word-break: break-word;
+            hyphens: auto;
             
             background-color: #38b6ff; 
             background-image: url('https://images.pexels.com/photos/531756/pexels-photo-531756.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'); 
@@ -126,7 +133,7 @@
         }
 
         .subheadline {
-            font-size: 1.25rem;
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
             font-weight: 400;
             line-height: 1.6;
             margin-top: 1.5rem;
@@ -137,7 +144,7 @@
 
         .contact-btn-main {
             margin-top: 2rem;
-            padding: 10px 24px;
+            padding: 12px 28px;
             font-size: 0.85rem;
             font-family: 'Inter', sans-serif; 
             font-weight: 600;
@@ -166,7 +173,7 @@
             color: #111;
             box-shadow: 0 -20px 50px rgba(0,0,0,0.5); 
         }
-        
+
         /* INTERACTIVE GRID COMPONENT (Square Lines over White) */
         .interactive-grid-bg {
             position: absolute;
@@ -226,7 +233,7 @@
         }
         .mission-section-cream p {
             font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
+            font-size: clamp(2rem, 5vw, 3.5rem);
             line-height: 1.2;
             color: rgba(17, 17, 17, 0.12);
             margin: 0;
@@ -377,7 +384,7 @@
 
         .contact-title {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 4rem;
+            font-size: clamp(3rem, 6vw, 4rem);
             color: #111; 
             margin-bottom: 1rem;
             text-transform: uppercase;
@@ -445,10 +452,9 @@
 
         /* Rotating Logo in Contact Section */
         .rotating-logo {
-            width: 400px;
+            width: 450px; /* Kept big! */
             height: auto;
-            filter: invert(0) opacity(0.9); 
-            animation: spinLogo 30s linear infinite;
+            animation: spinLogo 6s linear infinite; /* ROTATE FAST */
         }
         @keyframes spinLogo {
             100% { transform: rotate(360deg); }
@@ -489,7 +495,6 @@
             .contact-section { flex-direction: column; text-align: center; }
             .contact-title, .contact-subtitle { text-align: center; margin-left: auto; margin-right: auto; }
             .contact-right { margin-top: 5rem; }
-            .rotating-logo { width: 300px; }
         }
         @media (max-width: 768px) {
             header { 
@@ -503,54 +508,59 @@
                 letter-spacing: 0.5px; 
             }
             
-            .hero-wrapper { padding: 0 2rem; align-items: flex-start; }
-            .hero-title { font-size: 3rem; letter-spacing: -1.5px; }
-            .subheadline { font-size: 1.1rem; }
+            .hero-wrapper { 
+                padding: 0 1.5rem; 
+                align-items: flex-start; 
+                text-align: left;
+            }
             
-            .mission-section-cream p { font-size: 2.2rem; }
+            .hero-title { letter-spacing: -1.5px; word-break: break-word; hyphens: auto; }
+            
             .mission-section-cream, .team-section, .contact-section, .footer-cream { 
                 padding: 4rem 1.5rem; 
             }
             
             .team-header { font-size: 1.75rem; margin-bottom: 2rem; }
-            .team-carousel { padding: 1rem 1.5rem 3rem 1.5rem; gap: 1rem; }
-            .team-card { flex: 0 0 85vw; max-width: 320px; padding: 2rem 1.25rem; }
+            
+            /* MOBILE CAROUSEL STYLES - INFINITE LEFT TO RIGHT */
+            .team-carousel { 
+                padding: 1rem 0 3rem 0; 
+                gap: 1.5rem; 
+                scroll-snap-type: none; /* Disable snap for smooth auto scroll */
+                overflow-x: hidden; /* Hide scrollbar completely */
+            }
+            .team-card { 
+                flex: 0 0 85vw; 
+                max-width: 320px; 
+                padding: 2rem 1.25rem; 
+            }
             .team-card p { font-size: 0.85rem; max-width: 100%; }
             
-            .contact-title { font-size: 3rem; }
-            .rotating-logo { width: 220px; }
+            .rotating-logo { width: 350px; } /* Keep BIG on mobile */
             .footer-logo { font-size: 3rem; }
         }
+        
         @media (max-width: 480px) {
             header { 
                 padding: 1rem; 
+                flex-direction: column;
+                gap: 15px;
             }
-            .header-buttons { gap: 8px; }
+            .header-buttons { width: 100%; justify-content: center; }
             .nav-btn-top, .contact-btn-top { 
-                padding: 6px 10px; 
-                font-size: 0.65rem; 
+                padding: 8px 20px; 
+                font-size: 0.75rem; 
             }
             
-            .hero-wrapper { padding: 0 1.25rem; }
-            .hero-title { font-size: 2.4rem; line-height: 1.05; }
-            .subheadline { font-size: 0.95rem; }
+            .hero-title { letter-spacing: -1px; }
             
-            .mission-section-cream p { font-size: 1.5rem; line-height: 1.3; }
-            .mission-section-cream h2 { font-size: 1rem; }
-            
-            .contact-title { font-size: 2.2rem; }
-            .contact-subtitle { font-size: 0.95rem; }
             .contact-input { padding: 1rem 1.2rem; font-size: 0.9rem; }
             .contact-submit { padding: 1rem; font-size: 1rem; }
             
-            .rotating-logo { width: 180px; }
+            .rotating-logo { width: 300px; } /* Keep BIG on mobile */
             
             .footer-logo { font-size: 2.2rem; }
             .footer-tagline { font-size: 0.9rem; }
-        }
-        @media (max-width: 380px) {
-            /* For very small devices like iPhone SE */
-            .logo-container span { display: none; } /* Hide 'GYRATE' text, just show logo */
         }
     </style>
 </head>
@@ -563,7 +573,7 @@
             <img src="logo.png" alt="Logo">
             <span>GYRATE</span>
         </a>
-        <div class="header-buttons" style="display: flex; gap: 10px; align-items: center;">
+        <div class="header-buttons">
             <a href="manifesto.html" class="nav-btn-top">Manifesto</a>
             <button class="contact-btn-top" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Contact Us</button>
         </div>
@@ -597,7 +607,7 @@
                 <h2 class="team-header">Our Team</h2>
                 
                 <!-- Infinite Scroll Carousel -->
-                <div class="team-carousel">
+                <div class="team-carousel" id="mobile-carousel">
                     
                     <div class="team-card">
                         <img src="bhava.jpg" alt="Bhava Viswagnya Sai" class="member-image" style="object-position: center top;" onerror="this.src='bhava.png'">
@@ -620,13 +630,27 @@
                         <p>Sree brings <strong>30+ years of experience in electric machines, generators, actuation systems, manufacturing, testing, and industrialization</strong> across defense, aerospace, automotive, marine, rail, HVAC, and industrial applications. His experience spans platforms from <strong>0.25 kW to 500 kW</strong>, including missile and torpedo actuation, high-speed aerospace machines, and cryogenic systems.</p>
                     </div>
 
+                    <!-- Duplicates for seamless mobile auto-scroll -->
+                    <div class="team-card mobile-clone">
+                        <img src="bhava.jpg" alt="Bhava Viswagnya Sai" class="member-image" style="object-position: center top;" onerror="this.src='bhava.png'">
+                        <h3>Bhava Viswagnya Sai</h3>
+                        <h4>Co-Founder & CEO</h4>
+                        <p>Bhava brings <strong>5+ years of experience across defense, consumer electronics, renewable-energy systems, and electromechanical product development</strong>.</p>
+                    </div>
+                    <div class="team-card mobile-clone">
+                        <img src="vinuthna.jpg" alt="Vinuthna" class="member-image" style="object-position: center 20%;" onerror="this.src='vinuthna.png'">
+                        <h3>Vinuthna</h3>
+                        <h4>Co-Founder & Chief Strategy Officer</h4>
+                        <p>Vinuthna brings <strong>5+ years of experience across software engineering, artificial intelligence, machine learning, and intelligent systems</strong>.</p>
+                    </div>
+
                 </div>
             </div>
         </section>
 
         <!-- SECTION 4: CONTACT PAGE / FORM (White Background) -->
         <section class="contact-section" id="contact">
-            <!-- Interactive Hover Dots Grid -->
+            <!-- Interactive Hover Line Grid -->
             <div class="interactive-grid-bg"></div>
 
             <div class="contact-left">
@@ -643,7 +667,7 @@
             </div>
             
             <div class="contact-right">
-                <img src="logo.png" alt="Gyrate Logo" class="rotating-logo" onerror="this.style.display='none'">
+                <img src="blacklogo.png" alt="Gyrate Logo" class="rotating-logo" onerror="this.src='logo.png'; this.style.filter='invert(1)'">
             </div>
         </section>
 
@@ -673,7 +697,6 @@
 
                 section.addEventListener('mousemove', (e) => updateGrid(e.clientX, e.clientY));
                 
-                // Add touch support for mobile scrolling/dragging over the grid
                 section.addEventListener('touchmove', (e) => {
                     if(e.touches.length > 0) {
                         updateGrid(e.touches[0].clientX, e.touches[0].clientY);
@@ -683,13 +706,16 @@
         });
     </script>
 
-    <!-- 3D Tilt Carousel Logic -->
+    <!-- 3D Tilt Carousel & Mobile Auto Scroll Logic -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const cards = document.querySelectorAll('.team-card');
             
-            // Only apply 3D tilt on devices that support hover (not mobile touch)
+            // Only apply 3D tilt on devices that support hover (desktop)
             if (window.matchMedia("(hover: hover)").matches) {
+                // Hide mobile clones on desktop
+                document.querySelectorAll('.mobile-clone').forEach(el => el.style.display = 'none');
+
                 cards.forEach(card => {
                     card.addEventListener('mousemove', (e) => {
                         const rect = card.getBoundingClientRect();
@@ -710,13 +736,14 @@
                 });
             }
 
-            // Smooth mouse drag scroll for the carousel
-            const carousel = document.querySelector('.team-carousel');
+            // Desktop Drag Scroll
+            const carousel = document.getElementById('mobile-carousel');
             let isDown = false;
             let startX;
             let scrollLeft;
 
             carousel.addEventListener('mousedown', (e) => {
+                if(window.innerWidth <= 768) return; // Disable on mobile auto-scroll
                 isDown = true;
                 carousel.style.cursor = 'grabbing';
                 startX = e.pageX - carousel.offsetLeft;
@@ -731,12 +758,28 @@
                 carousel.style.cursor = 'auto';
             });
             carousel.addEventListener('mousemove', (e) => {
-                if(!isDown) return;
+                if(!isDown || window.innerWidth <= 768) return;
                 e.preventDefault();
                 const x = e.pageX - carousel.offsetLeft;
                 const walk = (x - startX) * 2; 
                 carousel.scrollLeft = scrollLeft - walk;
             });
+
+            // Mobile Auto Scroll (Left to Right seamless)
+            let autoScrollPos = 0;
+            function autoScrollMobile() {
+                if (window.innerWidth <= 768) {
+                    autoScrollPos += 0.8; // scroll speed
+                    carousel.scrollLeft = autoScrollPos;
+                    // When it scrolls past the first 3 cards, reset it seamlessly
+                    if (carousel.scrollLeft >= (carousel.scrollWidth / 2)) {
+                        autoScrollPos = 0;
+                        carousel.scrollLeft = 0;
+                    }
+                }
+                requestAnimationFrame(autoScrollMobile);
+            }
+            autoScrollMobile();
         });
     </script>
 
