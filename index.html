@@ -450,14 +450,11 @@
             box-shadow: 0 10px 25px rgba(56, 182, 255, 0.3);
         }
 
-        /* Rotating Logo in Contact Section */
+        /* Logo in Contact Section (Static and Massive) */
         .rotating-logo {
-            width: 450px; /* Kept big! */
+            width: 600px; 
+            max-width: 110vw; /* Allow it to spill beautifully if needed */
             height: auto;
-            animation: spinLogo 6s linear infinite; /* ROTATE FAST */
-        }
-        @keyframes spinLogo {
-            100% { transform: rotate(360deg); }
         }
 
         /* Footer */
@@ -536,7 +533,7 @@
             }
             .team-card p { font-size: 0.85rem; max-width: 100%; }
             
-            .rotating-logo { width: 350px; } /* Keep BIG on mobile */
+            .rotating-logo { width: 450px; max-width: 95vw; } /* Keep BIG on mobile */
             .footer-logo { font-size: 3rem; }
         }
         
@@ -557,7 +554,7 @@
             .contact-input { padding: 1rem 1.2rem; font-size: 0.9rem; }
             .contact-submit { padding: 1rem; font-size: 1rem; }
             
-            .rotating-logo { width: 300px; } /* Keep BIG on mobile */
+            .rotating-logo { width: 400px; max-width: 95vw; } /* Keep BIG on mobile */
             
             .footer-logo { font-size: 2.2rem; }
             .footer-tagline { font-size: 0.9rem; }
