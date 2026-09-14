@@ -351,6 +351,10 @@
             transform: translateZ(10px);
         }
 
+        .mobile-clone {
+            display: none !important;
+        }
+
         /* Section 4: Contact Page / Form (White Background) */
         .contact-section {
             padding: 8rem 5rem;
@@ -523,6 +527,9 @@
                 gap: 1.5rem; 
                 scroll-snap-type: none; /* Disable snap for smooth auto scroll */
                 overflow-x: hidden; /* Hide scrollbar completely */
+            }
+            .mobile-clone {
+                display: flex !important;
             }
             .team-card { 
                 flex: 0 0 85vw; 
@@ -708,9 +715,6 @@
             
             // Only apply 3D tilt on devices that support hover (desktop)
             if (window.matchMedia("(hover: hover)").matches) {
-                // Hide mobile clones on desktop
-                document.querySelectorAll('.mobile-clone').forEach(el => el.style.display = 'none');
-
                 cards.forEach(card => {
                     card.addEventListener('mousemove', (e) => {
                         const rect = card.getBoundingClientRect();
