@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GYRATE</title>
+    
+    <link rel="icon" href="logo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            background-color: #030816;
+            font-family: 'Inter', sans-serif;
+            color: white;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        /* FIXED BACKGROUND SHADER (HERO) */
+        .bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 2.5rem 5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -1px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            text-decoration: none;
+            color: white;
+        }
+        .logo-container img { height: 28px; width: auto; }
+
+        .nav-btn-top, .contact-btn-top {
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: white;
+            padding: 10px 28px;
+            font-size: 0.8rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .nav-btn-top:hover, .contact-btn-top:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: white;
+        }
+
+        /* FIXED HERO LAYER */
+        .hero-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 5rem;
+            z-index: 2;
+            pointer-events: none; 
+        }
+
+        .hero-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 5.5rem;
+            font-weight: 700;
+            line-height: 1.0;
+            letter-spacing: -2.5px;
+            margin: 0;
+            max-width: 900px;
+            pointer-events: auto;
+            
+            background-color: #38b6ff; 
+            background-image: url('https://images.pexels.com/photos/531756/pexels-photo-531756.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'); 
+            background-size: 200% auto;
+            background-position: 0% center;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            animation: moveClouds 40s linear infinite;
+            filter: drop-shadow(0 4px 15px rgba(0,0,0,0.8));
+        }
+
+        @keyframes moveClouds {
+            0% { background-position: 0% center; }
+            100% { background-position: -200% center; }
+        }
+
+        .subheadline {
+            font-size: 1.25rem;
+            font-weight: 400;
+            line-height: 1.6;
+            margin-top: 1.5rem;
+            max-width: 700px;
+            color: #e5e7eb;
+            pointer-events: auto;
+        }
+
+        .contact-btn-main {
+            margin-top: 2rem;
+            padding: 10px 24px;
+            font-size: 0.85rem;
+            font-family: 'Inter', sans-serif; 
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 4px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.1); 
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+            transition: all 0.2s ease;
+            pointer-events: auto;
+            width: fit-content;
+        }
+        .contact-btn-main:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: #fff;
+        }
+
+        /* NEW PAGE OVERLAY (Slides up) */
+        .content-wrapper {
+            position: relative;
+            z-index: 10; 
+            margin-top: 100vh; 
+            background-color: #ffffff; 
+            color: #111;
+            box-shadow: 0 -20px 50px rgba(0,0,0,0.5); 
+        }
+        
+        /* INTERACTIVE GRID COMPONENT (Square Lines over White) */
+        .interactive-grid-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            
+            /* High-Quality Square Line Grid */
+            background-image: 
+                linear-gradient(to right, rgba(0,0,0,0.06) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0,0,0,0.06) 1px, transparent 1px);
+            background-size: 50px 50px;
+            background-position: center center;
+            
+            /* The mask that reveals the grid near the mouse */
+            -webkit-mask-image: radial-gradient(
+                circle 400px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                black 0%,
+                transparent 100%
+            );
+            mask-image: radial-gradient(
+                circle 400px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                black 0%,
+                transparent 100%
+            );
+            
+            opacity: 1;
+        }
+
+        /* Section 2: Mission Scroll Reveal */
+        .mission-section-cream {
+            position: relative;
+            overflow: hidden;
+            padding: 8rem 5rem 4rem 5rem;
+            text-align: center;
+            background-color: #ffffff; 
+            max-width: 100%;
+            margin: 0 auto;
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .mission-content-wrapper {
+            position: relative;
+            z-index: 10; 
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .mission-section-cream h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: #444;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        .mission-section-cream p {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            line-height: 1.2;
+            color: rgba(17, 17, 17, 0.12);
+            margin: 0;
+        }
+        .reveal-word { transition: color 0.1s ease; }
+        .reveal-word.active { color: #111; }
+        .reveal-word.active-strong { color: #111; font-weight: 700; }
+
+        /* Section 3: Team Section */
+        .team-section {
+            position: relative;
+            padding: 8rem 0;
+            background-color: #030816; 
+            overflow: hidden;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        #team-shader-container {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+        }
+
+        .team-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+        }
+        
+        .team-header {
+            font-family: 'Space Grotesk', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: #fff;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        /* Carousel Styles */
+        .team-carousel {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            padding: 2rem 5rem 5rem 5rem;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none; 
+            perspective: 1500px;
+            justify-content: center; 
+        }
+        .team-carousel::-webkit-scrollbar {
+            display: none; 
+        }
+
+        .team-card {
+            flex: 0 0 320px; 
+            scroll-snap-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 12px;
+            padding: 2.5rem 1.5rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transform-style: preserve-3d;
+            transition: transform 0.15s ease-out; 
+            will-change: transform;
+        }
+        
+        .member-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            border: 2px solid rgba(255,255,255,0.3);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            background-color: rgba(255,255,255,0.1);
+            color: transparent; 
+            transform: translateZ(40px);
+            transition: transform 0.2s ease-out;
+        }
+        .team-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            margin: 0 0 0.25rem 0;
+            color: #fff;
+            text-align: center;
+            transform: translateZ(30px);
+        }
+        .team-card h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            color: #8bb3e6;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin: 0 0 1.5rem 0;
+            text-align: center;
+            transform: translateZ(20px);
+        }
+        .team-card p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #d1d5db;
+            margin: 0 auto;
+            text-align: left; 
+            width: 100%;
+            max-width: 250px; 
+            transform: translateZ(10px);
+        }
+
+        /* Section 4: Contact Page / Form (White Background) */
+        .contact-section {
+            padding: 8rem 5rem;
+            background-color: #ffffff; 
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            min-height: 80vh;
+            overflow: hidden;
+        }
+        
+        .contact-left {
+            flex: 1;
+            max-width: 600px;
+            position: relative;
+            z-index: 10; 
+        }
+        
+        .contact-right {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 10; 
+        }
+
+        .contact-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 4rem;
+            color: #111; 
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: -1.5px;
+            text-align: left;
+        }
+        
+        .contact-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            color: #555; 
+            margin-bottom: 3rem;
+            text-align: left;
+            max-width: 500px;
+        }
+        
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            width: 100%;
+        }
+        
+        .contact-input {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 1.2rem 1.5rem;
+            color: #111;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            border-radius: 8px;
+            outline: none;
+            transition: all 0.3s;
+            width: 100%;
+        }
+        .contact-input::placeholder { color: #888; }
+        .contact-input:focus {
+            border-color: #111;
+            background: #fff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .contact-submit {
+            background: #111; 
+            color: #fff;
+            border: none;
+            padding: 1.2rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            width: 100%;
+        }
+        .contact-submit:hover {
+            background: #38b6ff;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(56, 182, 255, 0.3);
+        }
+
+        /* Rotating Logo in Contact Section */
+        .rotating-logo {
+            width: 400px;
+            height: auto;
+            filter: invert(0) opacity(0.9); 
+            animation: spinLogo 30s linear infinite;
+        }
+        @keyframes spinLogo {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        .footer-cream {
+            padding: 6rem 5rem;
+            text-align: center;
+            background-color: #f0f0f0; 
+            position: relative;
+            z-index: 10;
+        }
+        .footer-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            letter-spacing: -2px;
+            margin: 0;
+            color: #111;
+        }
+        .footer-tagline {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #555;
+            margin: 1rem 0 2rem 0;
+            text-transform: uppercase;
+        }
+
+        /* ==================================================
+           EXTREME MOBILE OPTIMIZATIONS
+           ================================================== */
+        @media (max-width: 1400px) {
+            .team-carousel { justify-content: flex-start; } 
+        }
+        @media (max-width: 1024px) {
+            .contact-section { flex-direction: column; text-align: center; }
+            .contact-title, .contact-subtitle { text-align: center; margin-left: auto; margin-right: auto; }
+            .contact-right { margin-top: 5rem; }
+            .rotating-logo { width: 300px; }
+        }
+        @media (max-width: 768px) {
+            header { 
+                padding: 1.25rem 1.5rem; 
+            }
+            .logo-container { font-size: 1.2rem; }
+            .logo-container img { height: 22px; }
+            .nav-btn-top, .contact-btn-top { 
+                padding: 8px 14px; 
+                font-size: 0.7rem; 
+                letter-spacing: 0.5px; 
+            }
+            
+            .hero-wrapper { padding: 0 2rem; align-items: flex-start; }
+            .hero-title { font-size: 3rem; letter-spacing: -1.5px; }
+            .subheadline { font-size: 1.1rem; }
+            
+            .mission-section-cream p { font-size: 2.2rem; }
+            .mission-section-cream, .team-section, .contact-section, .footer-cream { 
+                padding: 4rem 1.5rem; 
+            }
+            
+            .team-header { font-size: 1.75rem; margin-bottom: 2rem; }
+            .team-carousel { padding: 1rem 1.5rem 3rem 1.5rem; gap: 1rem; }
+            .team-card { flex: 0 0 85vw; max-width: 320px; padding: 2rem 1.25rem; }
+            .team-card p { font-size: 0.85rem; max-width: 100%; }
+            
+            .contact-title { font-size: 3rem; }
+            .rotating-logo { width: 220px; }
+            .footer-logo { font-size: 3rem; }
+        }
+        @media (max-width: 480px) {
+            header { 
+                padding: 1rem; 
+            }
+            .header-buttons { gap: 8px; }
+            .nav-btn-top, .contact-btn-top { 
+                padding: 6px 10px; 
+                font-size: 0.65rem; 
+            }
+            
+            .hero-wrapper { padding: 0 1.25rem; }
+            .hero-title { font-size: 2.4rem; line-height: 1.05; }
+            .subheadline { font-size: 0.95rem; }
+            
+            .mission-section-cream p { font-size: 1.5rem; line-height: 1.3; }
+            .mission-section-cream h2 { font-size: 1rem; }
+            
+            .contact-title { font-size: 2.2rem; }
+            .contact-subtitle { font-size: 0.95rem; }
+            .contact-input { padding: 1rem 1.2rem; font-size: 0.9rem; }
+            .contact-submit { padding: 1rem; font-size: 1rem; }
+            
+            .rotating-logo { width: 180px; }
+            
+            .footer-logo { font-size: 2.2rem; }
+            .footer-tagline { font-size: 0.9rem; }
+        }
+        @media (max-width: 380px) {
+            /* For very small devices like iPhone SE */
+            .logo-container span { display: none; } /* Hide 'GYRATE' text, just show logo */
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Hero Shader Background -->
+    <div class="bg-container" id="shader-container"></div>
+    
+    <header>
+        <a href="index.html" class="logo-container">
+            <img src="logo.png" alt="Logo">
+            <span>GYRATE</span>
+        </a>
+        <div class="header-buttons" style="display: flex; gap: 10px; align-items: center;">
+            <a href="manifesto.html" class="nav-btn-top">Manifesto</a>
+            <button class="contact-btn-top" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Contact Us</button>
+        </div>
+    </header>
+
+    <div class="hero-wrapper">
+        <h1 class="hero-title">Electromechanical infrastructure<br>for the machine age.</h1>
+        <p class="subheadline">We build the electromechanical systems that move the world’s most advanced machines — across defense, space, robotics, aerospace, electro-mobility, and industry.</p>
+        <button class="contact-btn-main" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Contact Us</button>
+    </div>
+
+    <main class="content-wrapper">
+        
+        <!-- SECTION 2: MISSION -->
+        <section class="mission-section-cream" id="mission-trigger">
+            
+            <div class="mission-content-wrapper">
+                <h2>Our Mission</h2>
+                <p id="reveal-text">
+                    We are building <strong>the electromechanical infrastructure for the machine age</strong> — infrastructure designed to produce critical electromechanical systems with far less labor, lower cost, and reduced dependence on fragile global supply chains.
+                </p>
+            </div>
+        </section>
+
+        <!-- SECTION 3: TEAM -->
+        <section class="team-section">
+            <!-- Liquid Shader Background Duplicate -->
+            <div id="team-shader-container"></div>
+
+            <div class="team-container">
+                <h2 class="team-header">Our Team</h2>
+                
+                <!-- Infinite Scroll Carousel -->
+                <div class="team-carousel">
+                    
+                    <div class="team-card">
+                        <img src="bhava.jpg" alt="Bhava Viswagnya Sai" class="member-image" style="object-position: center top;" onerror="this.src='bhava.png'">
+                        <h3>Bhava Viswagnya Sai</h3>
+                        <h4>Co-Founder & CEO</h4>
+                        <p>Bhava brings <strong>5+ years of experience across defense, consumer electronics, renewable-energy systems, and electromechanical product development</strong>, including work involving <strong>solar-pump systems and dual-voltage generator systems for armored vehicles and tanks</strong>. At GYRATE, he leads the company’s overall direction, product vision, commercialization, manufacturing strategy, and long-term platform development.</p>
+                    </div>
+
+                    <div class="team-card">
+                        <img src="vinuthna.jpg" alt="Vinuthna" class="member-image" style="object-position: center 20%;" onerror="this.src='vinuthna.png'">
+                        <h3>Vinuthna</h3>
+                        <h4>Co-Founder & Chief Strategy Officer</h4>
+                        <p>Vinuthna brings <strong>5+ years of experience across software engineering, artificial intelligence, machine learning, and intelligent systems</strong>, alongside a central role in GYRATE’s corporate and technology strategy. She works across market positioning, strategic planning, partnerships, competitive intelligence, platform expansion, and long-term company direction while shaping GYRATE’s architecture.</p>
+                    </div>
+
+                    <div class="team-card">
+                        <img src="sreevenkat.jpg" alt="Sree Venkat" class="member-image" style="object-position: center top;" onerror="this.src='sreevenkat.png'">
+                        <h3>Sree Venkat</h3>
+                        <h4>Co-Founder & CTO</h4>
+                        <p>Sree brings <strong>30+ years of experience in electric machines, generators, actuation systems, manufacturing, testing, and industrialization</strong> across defense, aerospace, automotive, marine, rail, HVAC, and industrial applications. His experience spans platforms from <strong>0.25 kW to 500 kW</strong>, including missile and torpedo actuation, high-speed aerospace machines, and cryogenic systems.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: CONTACT PAGE / FORM (White Background) -->
+        <section class="contact-section" id="contact">
+            <!-- Interactive Hover Dots Grid -->
+            <div class="interactive-grid-bg"></div>
+
+            <div class="contact-left">
+                <h2 class="contact-title">Let's Build</h2>
+                <p class="contact-subtitle">Get in touch to discuss electromechanical systems, partnerships, or joining the GYRATE team.</p>
+                
+                <form class="contact-form" onsubmit="event.preventDefault(); alert('Message Sent!');">
+                    <input type="text" class="contact-input" placeholder="Full Name" required>
+                    <input type="email" class="contact-input" placeholder="Email Address" required>
+                    <input type="text" class="contact-input" placeholder="Company / Organization">
+                    <textarea class="contact-input" placeholder="Tell us about your project or inquiry..." rows="6" required></textarea>
+                    <button type="submit" class="contact-submit">Send Message</button>
+                </form>
+            </div>
+            
+            <div class="contact-right">
+                <img src="logo.png" alt="Gyrate Logo" class="rotating-logo" onerror="this.style.display='none'">
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="footer-cream">
+            <h1 class="footer-logo">GYRATE</h1>
+            <h2 class="footer-tagline">INFRASTRUCTURE FOR THE MACHINE AGE.</h2>
+        </footer>
+    </main>
+
+    <!-- Interactive Grid Hover & Touch Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.interactive-grid-bg').forEach(grid => {
+                const section = grid.parentElement;
+                
+                grid.style.setProperty('--mouse-x', '50%');
+                grid.style.setProperty('--mouse-y', '50%');
+
+                const updateGrid = (clientX, clientY) => {
+                    const rect = section.getBoundingClientRect();
+                    const x = clientX - rect.left;
+                    const y = clientY - rect.top;
+                    grid.style.setProperty('--mouse-x', \`\${x}px\`);
+                    grid.style.setProperty('--mouse-y', \`\${y}px\`);
+                };
+
+                section.addEventListener('mousemove', (e) => updateGrid(e.clientX, e.clientY));
+                
+                // Add touch support for mobile scrolling/dragging over the grid
+                section.addEventListener('touchmove', (e) => {
+                    if(e.touches.length > 0) {
+                        updateGrid(e.touches[0].clientX, e.touches[0].clientY);
+                    }
+                }, { passive: true });
+            });
+        });
+    </script>
+
+    <!-- 3D Tilt Carousel Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.team-card');
+            
+            // Only apply 3D tilt on devices that support hover (not mobile touch)
+            if (window.matchMedia("(hover: hover)").matches) {
+                cards.forEach(card => {
+                    card.addEventListener('mousemove', (e) => {
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
+                        
+                        const rotateX = ((y - centerY) / centerY) * -15; 
+                        const rotateY = ((x - centerX) / centerX) * 15;
+                        
+                        card.style.transform = \`perspective(1500px) rotateX(\${rotateX}deg) rotateY(\${rotateY}deg) scale3d(1.02, 1.02, 1.02)\`;
+                    });
+                    
+                    card.addEventListener('mouseleave', () => {
+                        card.style.transform = \`perspective(1500px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)\`;
+                    });
+                });
+            }
+
+            // Smooth mouse drag scroll for the carousel
+            const carousel = document.querySelector('.team-carousel');
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            carousel.addEventListener('mousedown', (e) => {
+                isDown = true;
+                carousel.style.cursor = 'grabbing';
+                startX = e.pageX - carousel.offsetLeft;
+                scrollLeft = carousel.scrollLeft;
+            });
+            carousel.addEventListener('mouseleave', () => {
+                isDown = false;
+                carousel.style.cursor = 'auto';
+            });
+            carousel.addEventListener('mouseup', () => {
+                isDown = false;
+                carousel.style.cursor = 'auto';
+            });
+            carousel.addEventListener('mousemove', (e) => {
+                if(!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - carousel.offsetLeft;
+                const walk = (x - startX) * 2; 
+                carousel.scrollLeft = scrollLeft - walk;
+            });
+        });
+    </script>
+
+    <!-- Scroll Reveal Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('reveal-text');
+            const words = [
+                {t: "We", s: false}, {t: "are", s: false}, {t: "building", s: false},
+                {t: "the", s: true}, {t: "electromechanical", s: true}, {t: "infrastructure", s: true}, {t: "for", s: true}, {t: "the", s: true}, {t: "machine", s: true}, {t: "age", s: true},
+                {t: "—", s: false}, {t: "infrastructure", s: false}, {t: "designed", s: false}, {t: "to", s: false}, {t: "produce", s: false}, {t: "critical", s: false}, {t: "electromechanical", s: false}, {t: "systems", s: false}, {t: "with", s: false}, {t: "far", s: false}, {t: "less", s: false}, {t: "labor,", s: false}, {t: "lower", s: false}, {t: "cost,", s: false}, {t: "and", s: false}, {t: "reduced", s: false}, {t: "dependence", s: false}, {t: "on", s: false}, {t: "fragile", s: false}, {t: "global", s: false}, {t: "supply", s: false}, {t: "chains.", s: false}
+            ];
+            
+            container.innerHTML = words.map(w => {
+                if (w.s) return `<strong><span class="reveal-word">${w.t}</span></strong>`;
+                return `<span class="reveal-word">${w.t}</span>`;
+            }).join(' ');
+
+            const spanElements = container.querySelectorAll('.reveal-word');
+            const triggerSection = document.getElementById('mission-trigger');
+
+            window.addEventListener('scroll', () => {
+                const rect = triggerSection.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                
+                const startPoint = windowHeight * 0.90; 
+                const endPoint = windowHeight * 0.30; 
+                
+                let progress = (startPoint - rect.top) / (startPoint - endPoint);
+                progress = Math.max(0, Math.min(1, progress));
+                
+                const activeIndex = Math.floor(progress * spanElements.length);
+                
+                spanElements.forEach((span, index) => {
+                    if (index <= activeIndex && progress > 0) {
+                        span.classList.add(span.parentElement.tagName === 'STRONG' ? 'active-strong' : 'active');
+                    } else {
+                        span.classList.remove('active', 'active-strong');
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- ThreeJS WebGL Background Setup Function -->
+    <script type="module">
+        import * as THREE from 'https://esm.sh/three@0.160.0';
+
+        function initLiquidShader(containerId) {
+            const container = document.getElementById(containerId);
+            if(!container) return;
+
+            const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: false, powerPreference: "high-performance" });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            container.appendChild(renderer.domElement);
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+
+            const material = new THREE.ShaderMaterial({
+                uniforms: {
+                    u_time: { value: 0 },
+                    u_resolution: { value: new THREE.Vector2(container.clientWidth, container.clientHeight) },
+                    u_twistSpeed: { value: 0.35 },
+                    u_position: { value: new THREE.Vector2(0, 0) },
+                    u_foldWidth: { value: 4.0 },
+                    u_foldBillow: { value: 1.5 },
+                    u_foldTension: { value: 0.6 },
+                    u_foldRotation: { value: -0.35 },
+                    u_coreColor: { value: new THREE.Color("#0d1b2a") },
+                    u_blueBand: { value: new THREE.Color("#1b263b") },
+                    u_cyanBand: { value: new THREE.Color("#415a77") },
+                    u_purpleBand: { value: new THREE.Color("#778da9") },
+                    u_orangeBand: { value: new THREE.Color("#e0e1dd") },
+                    u_highlightColor: { value: new THREE.Color("#ffffff") }
+                },
+                vertexShader: `
+                    void main() {
+                        gl_Position = vec4(position, 1.0);
+                    }
+                `,
+                fragmentShader: `
+                    uniform float u_time;
+                    uniform vec2 u_resolution;
+                    uniform float u_twistSpeed;
+                    uniform vec2 u_position;
+                    uniform float u_foldWidth;
+                    uniform float u_foldBillow;
+                    uniform float u_foldTension;
+                    uniform float u_foldRotation;
+                    uniform vec3 u_coreColor;
+                    uniform vec3 u_blueBand;
+                    uniform vec3 u_purpleBand;
+                    uniform vec3 u_cyanBand;
+                    uniform vec3 u_orangeBand;
+                    uniform vec3 u_highlightColor;
+
+                    #define MAX_STEPS 120
+                    #define MAX_DIST 15.0
+                    #define SURF_DIST 0.002
+
+                    mat2 rot(float a) { return mat2(cos(a), -sin(a), sin(a), cos(a)); }
+
+                    float map(vec3 p) {
+                        vec3 q = p;
+                        q.xy *= rot(u_foldRotation); 
+                        float billow = sin(q.y * 1.2 + u_time * u_twistSpeed * 0.15) * u_foldBillow;
+                        q.z += billow;
+                        float taper = smoothstep(7.0, 1.0, abs(q.y));
+                        float reach = smoothstep(8.0, 0.0, abs(q.y));
+                        float twistPhase = (q.y * 0.8) * reach - u_time * (u_twistSpeed * 0.2);
+                        q.xz *= rot(twistPhase);
+                        q.z += sin(q.x * 1.0) * u_foldTension;
+                        float w = u_foldWidth * taper; 
+                        float t = 0.015 * taper; 
+                        vec2 d2 = vec2(max(abs(q.x) - w, 0.0), max(abs(q.z) - t, 0.0));
+                        return (length(d2) - 0.25) * 0.4;
+                    }
+
+                    vec3 getNormal(vec3 p) {
+                        vec2 e = vec2(0.003, 0); 
+                        return normalize(vec3(
+                            map(p + e.xyy) - map(p - e.xyy),
+                            map(p + e.yxy) - map(p - e.yxy),
+                            map(p + e.yyx) - map(p - e.yyx)
+                        ));
+                    }
+
+                    void main() {
+                        vec2 uv = (gl_FragCoord.xy - 0.5 * u_resolution.xy) / u_resolution.y;
+                        uv /= 1.15;
+                        uv -= u_position;
+                        
+                        vec3 ro = vec3(0.0, 0.0, 6.0);
+                        vec3 rd = normalize(vec3(uv, -1.5));
+                        
+                        float d0 = 0.0;
+                        vec3 p;
+                        bool hit = false;
+                        for(int i = 0; i < MAX_STEPS; i++) {
+                            p = ro + rd * d0;
+                            float ds = map(p);
+                            d0 += ds;
+                            if(d0 > MAX_DIST) break;
+                            if(abs(ds) < SURF_DIST) { hit = true; break; }
+                        }
+
+                        vec3 color = mix(vec3(0.012, 0.031, 0.086), vec3(0.0, 0.0, 0.02), smoothstep(0.0, 1.5, length(uv)));
+                        
+                        if(hit) {
+                            vec3 n = getNormal(p);
+                            vec3 v = normalize(ro - p);
+                            float fresnel = 1.0 - max(dot(n, v), 0.0);
+                            float f2 = pow(fresnel, 1.4); 
+                            
+                            color = u_coreColor;
+                            color = mix(color, u_blueBand, smoothstep(0.0, 0.35, f2));
+                            color = mix(color, u_cyanBand, smoothstep(0.35, 0.55, f2));
+                            color = mix(color, u_purpleBand, smoothstep(0.55, 0.75, f2));
+                            color = mix(color, u_orangeBand, smoothstep(0.75, 1.0, f2));
+                            
+                            vec3 h1 = normalize(normalize(vec3(1.5, 2.0, 2.5)) + v);
+                            color += pow(max(dot(n, h1), 0.0), 12.0) * u_highlightColor * 1.1; 
+                            
+                            vec3 h2 = normalize(normalize(vec3(-2.0, -1.0, -1.0)) + v);
+                            color += pow(max(dot(n, h2), 0.0), 8.0) * u_highlightColor * 0.7; 
+                            
+                            color += u_orangeBand * (smoothstep(0.6, 1.0, f2) * 0.5) * pow(fresnel, 4.0) * 2.5; 
+                            color += u_blueBand * smoothstep(-0.2, 1.0, reflect(-v, n).y) * 0.5; 
+                            color = pow(color, vec3(0.9)); 
+                        }
+                        gl_FragColor = vec4(color, 1.0);
+                    }
+                `
+            });
+
+            const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material);
+            scene.add(mesh);
+            const clock = new THREE.Clock();
+            
+            function animate() {
+                requestAnimationFrame(animate);
+                material.uniforms.u_time.value = clock.getElapsedTime();
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            window.addEventListener('resize', () => {
+                renderer.setSize(container.clientWidth, container.clientHeight);
+                material.uniforms.u_resolution.value.set(container.clientWidth, container.clientHeight);
+            });
+        }
+
+        // Initialize the liquid shader in both containers
+        initLiquidShader('shader-container');
+        initLiquidShader('team-shader-container');
+    </script>
+</body>
+</html>

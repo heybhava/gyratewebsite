@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GYRATE - The Manifesto</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0; padding: 0; width: 100%; min-height: 100vh;
+            background-color: #F8F6F0; /* Elegant off-white cream */
+            color: #111;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        header {
+            width: 100%; padding: 2.5rem 5rem;
+            display: flex; justify-content: space-between;
+            align-items: center; box-sizing: border-box;
+        }
+        .logo-container {
+            display: flex; align-items: center; gap: 12px;
+            font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+            font-size: 1.5rem; letter-spacing: -1px; text-decoration: none; color: #111;
+        }
+        .logo-container img { height: 28px; width: auto; filter: invert(1); }
+        .nav-btn-top {
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.05);
+            color: #111;
+            padding: 10px 28px;
+            font-size: 0.8rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+            border-radius: 50px; cursor: pointer; text-decoration: none; transition: all 0.3s ease;
+        }
+        .nav-btn-top:hover {
+            background: rgba(0, 0, 0, 0.1); border-color: #111;
+        }
+        .manifesto-section {
+            padding: 4rem 4rem 10rem 4rem;
+        }
+        .manifesto-title {
+            font-family: 'Space Grotesk', sans-serif; font-size: 3rem; text-align: center;
+            color: #111; margin-bottom: 5rem; text-transform: uppercase; letter-spacing: 3px;
+        }
+        .book-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 4rem; max-width: 1700px; margin: 0 auto;
+        }
+        .book-column {
+            color: #222; font-family: 'Playfair Display', serif; font-size: 1.25rem; line-height: 1.8; text-align: justify;
+        }
+        .book-column strong { font-weight: 700; color: #000; }
+        @media (max-width: 1400px) { .book-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { .book-grid { grid-template-columns: 1fr; } header { padding: 1.5rem 2rem; } .manifesto-section { padding: 4rem 2rem; } }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo-container">
+            <img src="logo.png" alt="Logo" onerror="this.style.display='none'">
+            GYRATE
+        </a>
+        <a href="index.html" class="nav-btn-top">Back to Home</a>
+    </header>
+    <section class="manifesto-section">
+        <h2 class="manifesto-title">The Manifesto</h2>
+        <div class="book-grid">
+            <div class="book-column">
+                <p>Humanity is entering an era in which intelligence is leaving the screen and entering the physical world. Software can think, plan, perceive, and decide, but none of that matters until something can actually move, lift, steer, operate, manufacture, heal, transport, explore, defend, or build. Every robot, spacecraft, autonomous system, medical machine, electric vehicle, industrial tool, and new class of hardware eventually runs into the same physical reality: intelligence needs motion, power, sensing, control, reliability, and manufacturing. Today, that foundation is still fragmented. Too many companies are forced to rebuild the same electromechanical capabilities from scratch before they can even begin building what makes their machine special. GYRATE exists to change that. We are building <strong>electromechanical infrastructure for the machine age</strong>: a common physical foundation that allows the next generation of hardware companies to start further ahead.</p>
+            </div>
+            <div class="book-column">
+                <p>The ambition is not to make one better motor or one better actuator. It is to build a layer that compounds across industries: architectures that improve, manufacturing systems that become more autonomous, supply chains that become more resilient, controls that become smarter, and production data that makes every generation better than the last. If we succeed, a founder building a surgical robot should not need to become a motor manufacturer. A company building an autonomous submarine should not need to invent its own motion supply chain. A team building a spacecraft, humanoid, climate machine, or product that does not even have a category yet should be able to focus on the part of the future that only they can create. GYRATE should absorb more of the repeated physical complexity beneath them and turn it into infrastructure.</p>
+            </div>
+            <div class="book-column">
+                <p>That is where the NVIDIA analogy matters. NVIDIA did not become foundational because it built every AI product. It created the computational infrastructure that allowed thousands of other companies to build far more ambitious things on top. <strong>GYRATE is pursuing that same position in the physical world.</strong> If NVIDIA gave intelligence a computational substrate, GYRATE wants to give intelligence a physical one. Not by building every machine, but by becoming the electromechanical foundation beneath them: motion, power, sensing, control, manufacturing, test, and the accumulated knowledge that makes physical systems easier to create and scale. The long-term goal is that when someone decides to build a new hardware company, the question is no longer, “How much of this electromechanical stack do we have to reinvent?” It becomes, <strong>“What can we build on GYRATE?”</strong></p>
+            </div>
+            <div class="book-column">
+                <p>The humanitarian value of that is larger than any single product. Better infrastructure accelerates everyone above it. It can mean medical equipment developed faster, robots made affordable enough to take dangerous work away from people, cleaner electric machines deployed at greater scale, spacecraft built with less friction, resilient manufacturing brought closer to where it is needed, and entirely new physical technologies becoming possible for teams that could never afford to vertically integrate everything themselves. GYRATE’s highest ambition is not simply to become a large company. It is to become one of the pieces of infrastructure that <strong>expands what humanity is capable of building</strong>.</p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

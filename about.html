@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GYRATE - Our Vision</title>
+    
+    <link rel="icon" href="logo.png" type="image/png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            /* NEON BLUE BACKGROUND */
+            background-color: #002DFF; 
+            font-family: 'Inter', sans-serif;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 2.5rem 5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(0, 45, 255, 0.9), rgba(0, 45, 255, 0));
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -1px;
+            text-decoration: none;
+            color: white;
+        }
+        .logo-container img { height: 28px; width: auto; filter: brightness(0) invert(1); }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+        .nav-links a:hover { opacity: 1; }
+
+        .contact-btn-top {
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            background: transparent;
+            color: white;
+            padding: 10px 28px;
+            font-size: 0.8rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .contact-btn-top:hover {
+            background: white;
+            color: #002DFF;
+        }
+
+        /* Mission Scroll Reveal */
+        .mission-section-neon {
+            padding: 12rem 5rem 6rem 5rem;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .mission-section-neon h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: rgba(255, 255, 255, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+        .mission-section-neon p {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            line-height: 1.2;
+            color: rgba(255, 255, 255, 0.15); /* Faded white */
+            margin: 0;
+        }
+        
+        .reveal-word {
+            transition: color 0.15s ease;
+        }
+        .reveal-word.active {
+            color: #ffffff; /* Solid white */
+        }
+        .reveal-word.active-strong {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        /* Book Passage (4 Columns) */
+        .book-section {
+            padding: 2rem 5rem 6rem 5rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+        }
+        .book-paragraph {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+            text-align: justify;
+            margin: 0;
+        }
+        .book-paragraph strong {
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            background-color: rgba(0, 0, 0, 0.1); 
+        }
+        .team-container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        .team-header {
+            font-family: 'Space Grotesk', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: #ffffff;
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+        .team-card {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .member-image {
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 2rem;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+        }
+        .team-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            margin: 0 0 0.5rem 0;
+            color: #ffffff;
+            text-align: center;
+        }
+        .team-card h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0 0 2rem 0;
+            text-align: center;
+        }
+        .team-card p {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0;
+            text-align: justify;
+        }
+
+        /* Footer */
+        .footer-neon {
+            padding: 8rem 5rem;
+            text-align: center;
+        }
+        .footer-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 6rem;
+            font-weight: 700;
+            letter-spacing: -3px;
+            margin: 0;
+            color: #ffffff;
+        }
+        .footer-tagline {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 1rem 0 2rem 0;
+            text-transform: uppercase;
+        }
+        .footer-sub {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0;
+        }
+
+        @media (max-width: 1200px) {
+            .book-grid { grid-template-columns: repeat(2, 1fr); }
+            .team-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            header { padding: 1.5rem 2rem; }
+            .book-grid, .team-grid { grid-template-columns: 1fr; }
+            .mission-section-neon p { font-size: 2rem; }
+            .mission-section-neon, .book-section, .team-section, .footer-neon { padding: 3rem 2rem; }
+        }
+    </style>
+</head>
+<body>
+    
+    <header>
+        <a href="index.html" class="logo-container">
+            <img src="logo.png" alt="Logo">
+            GYRATE
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <button class="contact-btn-top">Contact Us</button>
+        </div>
+    </header>
+
+    <main>
+        
+        <section class="mission-section-neon" id="mission-trigger">
+            <h2>Our Mission</h2>
+            <p id="reveal-text">
+                We are building <strong>the electromechanical infrastructure for the machine age</strong> — infrastructure designed to produce critical electromechanical systems with far less labor, lower cost, and reduced dependence on fragile global supply chains.
+            </p>
+        </section>
+
+        <section class="book-section">
+            <div class="book-grid">
+                <p class="book-paragraph">Humanity is entering an era in which intelligence is leaving the screen and entering the physical world. Software can think, plan, perceive, and decide, but none of that matters until something can actually move, lift, steer, operate, manufacture, heal, transport, explore, defend, or build. Every robot, spacecraft, autonomous system, medical machine, electric vehicle, industrial tool, and new class of hardware eventually runs into the same physical reality: intelligence needs motion, power, sensing, control, reliability, and manufacturing. Today, that foundation is still fragmented. Too many companies are forced to rebuild the same electromechanical capabilities from scratch before they can even begin building what makes their machine special. GYRATE exists to change that. We are building <strong>electromechanical infrastructure for the machine age</strong>: a common physical foundation that allows the next generation of hardware companies to start further ahead.</p>
+                <p class="book-paragraph">The ambition is not to make one better motor or one better actuator. It is to build a layer that compounds across industries: architectures that improve, manufacturing systems that become more autonomous, supply chains that become more resilient, controls that become smarter, and production data that makes every generation better than the last. If we succeed, a founder building a surgical robot should not need to become a motor manufacturer. A company building an autonomous submarine should not need to invent its own motion supply chain. A team building a spacecraft, humanoid, climate machine, or product that does not even have a category yet should be able to focus on the part of the future that only they can create. GYRATE should absorb more of the repeated physical complexity beneath them and turn it into infrastructure.</p>
+                <p class="book-paragraph">That is where the NVIDIA analogy matters. NVIDIA did not become foundational because it built every AI product. It created the computational infrastructure that allowed thousands of other companies to build far more ambitious things on top. <strong>GYRATE is pursuing that same position in the physical world.</strong> If NVIDIA gave intelligence a computational substrate, GYRATE wants to give intelligence a physical one. Not by building every machine, but by becoming the electromechanical foundation beneath them: motion, power, sensing, control, manufacturing, test, and the accumulated knowledge that makes physical systems easier to create and scale. The long-term goal is that when someone decides to build a new hardware company, the question is no longer, “How much of this electromechanical stack do we have to reinvent?” It becomes, <strong>“What can we build on GYRATE?”</strong></p>
+                <p class="book-paragraph">The humanitarian value of that is larger than any single product. Better infrastructure accelerates everyone above it. It can mean medical equipment developed faster, robots made affordable enough to take dangerous work away from people, cleaner electric machines deployed at greater scale, spacecraft built with less friction, resilient manufacturing brought closer to where it is needed, and entirely new physical technologies becoming possible for teams that could never afford to vertically integrate everything themselves. GYRATE’s highest ambition is not simply to become a large company. It is to become one of the pieces of infrastructure that <strong>expands what humanity is capable of building</strong>.</p>
+            </div>
+        </section>
+
+        <section class="team-section">
+            <div class="team-container">
+                <h2 class="team-header">Our Team</h2>
+                <div class="team-grid">
+                    
+                    <div class="team-card">
+                        <img src="bhava.jpg" alt="Bhava Viswagnya Sai" class="member-image" onerror="this.src='bhava.png'">
+                        <h3>Bhava Viswagnya Sai</h3>
+                        <h4>Co-Founder & CEO</h4>
+                        <p>Bhava brings <strong>5+ years of experience across defense, consumer electronics, renewable-energy systems, and electromechanical product development</strong>, including work involving <strong>solar-pump systems and dual-voltage generator systems for armored vehicles and tanks</strong>. At GYRATE, he leads the company’s overall direction, product vision, commercialization, manufacturing strategy, and long-term platform development. His focus is on turning GYRATE from an electromechanical engineering company into the <strong>infrastructure layer for the machine age</strong>, connecting technology, manufacturing, supply chain, and market expansion under one coherent company vision.</p>
+                    </div>
+
+                    <div class="team-card">
+                        <img src="vinuthna.jpg" alt="Vinuthna" class="member-image" onerror="this.src='vinuthna.png'">
+                        <h3>Vinuthna</h3>
+                        <h4>Co-Founder & Chief Strategy Officer</h4>
+                        <p>Vinuthna brings <strong>5+ years of experience across software engineering, artificial intelligence, machine learning, and intelligent systems</strong>, alongside a central role in GYRATE’s corporate and technology strategy. As <strong>Chief Strategy Officer</strong>, she works across market positioning, strategic planning, partnerships, competitive intelligence, platform expansion, and long-term company direction while also shaping GYRATE’s software, AI, cybersecurity, and machine-intelligence architecture. Her role connects the company’s technical roadmap with its commercial strategy, helping determine <strong>where GYRATE should compete, what capabilities it should build, and how those capabilities compound across industries</strong>.</p>
+                    </div>
+
+                    <div class="team-card">
+                        <img src="sreevenkat.jpg" alt="Sree Venkat" class="member-image" onerror="this.src='sreevenkat.png'">
+                        <h3>Sree Venkat</h3>
+                        <h4>Co-Founder & CTO</h4>
+                        <p>Sree brings <strong>30+ years of experience in electric machines, generators, actuation systems, manufacturing, testing, and industrialization</strong> across <strong>defense, aerospace, automotive, marine, rail, HVAC, and industrial applications</strong>. His experience spans electric-machine platforms from approximately <strong>0.25 kW to 500 kW</strong>, including missile and torpedo actuation, high-speed aerospace machines, cryogenic systems, submarine and low-magnetic-signature motors, drone motors, generators, manufacturing plants, and specialized test infrastructure. He has led engineering organizations of <strong>40+ engineers</strong> and brings deep expertise across electromagnetic design, prototyping, validation, supplier industrialization, compliance, manufacturing-process development, and production. At GYRATE, he leads the technical architecture, manufacturing engineering, validation, and industrialization strategy behind the company’s electromechanical platform.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer-neon">
+            <h1 class="footer-logo">GYRATE</h1>
+            <h2 class="footer-tagline">ELECTROMECHANICAL INFRASTRUCTURE<br>FOR THE MACHINE AGE.</h2>
+            <p class="footer-sub">Intelligence is becoming abundant.<br>Now the physical world needs infrastructure worthy of it.</p>
+        </footer>
+    </main>
+
+    <!-- Scroll Reveal Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('reveal-text');
+            const words = [
+                {t: "We", s: false}, {t: "are", s: false}, {t: "building", s: false},
+                {t: "the", s: true}, {t: "electromechanical", s: true}, {t: "infrastructure", s: true}, {t: "for", s: true}, {t: "the", s: true}, {t: "machine", s: true}, {t: "age", s: true},
+                {t: "—", s: false}, {t: "infrastructure", s: false}, {t: "designed", s: false}, {t: "to", s: false}, {t: "produce", s: false}, {t: "critical", s: false}, {t: "electromechanical", s: false}, {t: "systems", s: false}, {t: "with", s: false}, {t: "far", s: false}, {t: "less", s: false}, {t: "labor,", s: false}, {t: "lower", s: false}, {t: "cost,", s: false}, {t: "and", s: false}, {t: "reduced", s: false}, {t: "dependence", s: false}, {t: "on", s: false}, {t: "fragile", s: false}, {t: "global", s: false}, {t: "supply", s: false}, {t: "chains.", s: false}
+            ];
+            
+            container.innerHTML = words.map(w => {
+                if (w.s) return `<strong><span class="reveal-word">${w.t}</span></strong>`;
+                return `<span class="reveal-word">${w.t}</span>`;
+            }).join(' ');
+
+            const spanElements = container.querySelectorAll('.reveal-word');
+            const triggerSection = document.getElementById('mission-trigger');
+
+            window.addEventListener('scroll', () => {
+                const rect = triggerSection.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                
+                const startPoint = windowHeight * 0.90; 
+                const endPoint = windowHeight * 0.30; 
+                
+                let progress = (startPoint - rect.top) / (startPoint - endPoint);
+                progress = Math.max(0, Math.min(1, progress));
+                
+                const activeIndex = Math.floor(progress * spanElements.length);
+                
+                spanElements.forEach((span, index) => {
+                    if (index <= activeIndex && progress > 0) {
+                        span.classList.add(span.parentElement.tagName === 'STRONG' ? 'active-strong' : 'active');
+                    } else {
+                        span.classList.remove('active', 'active-strong');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
