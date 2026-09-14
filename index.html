@@ -285,6 +285,7 @@
             scrollbar-width: none; 
             perspective: 1500px;
             justify-content: center; 
+            align-items: stretch; /* Force equal height for all cards */
         }
         .team-carousel::-webkit-scrollbar {
             display: none; 
@@ -354,9 +355,11 @@
         .team-socials {
             display: flex;
             gap: 15px;
-            margin-top: 1.5rem;
+            margin-top: auto; /* Pushes the icons strictly to the bottom */
+            padding-top: 2rem; /* Creates breathing room from the text */
             justify-content: center;
             transform: translateZ(25px);
+            width: 100%;
         }
         .team-socials a {
             color: #8bb3e6;
